@@ -1,8 +1,8 @@
 """Evaluation-only qualitative retrieval, preserving abstention and unresolved categories."""
 from collections import Counter
-from ..stage_interfaces import DisagreementInput, DisagreementOutput, DisagreementReport
-from ..disagreement_analysis import analyze_editor
-from ..workflow_contracts import MetadataItem
+from theory_discovery.core.stage_interfaces import DisagreementInput, DisagreementOutput, DisagreementReport
+from theory_discovery.evaluation.disagreement_analysis import analyze_editor
+from theory_discovery.core.workflow_contracts import MetadataItem
 
 def run(inputs: DisagreementInput) -> DisagreementOutput:
     analysis = analyze_editor(inputs)

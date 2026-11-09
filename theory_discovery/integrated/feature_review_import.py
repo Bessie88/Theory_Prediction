@@ -1,7 +1,7 @@
 """Completed feature review results are evaluation artifacts, never feature overwrites."""
-from ..stage_interfaces import FeatureReviewImportInput, FeatureReviewImportOutput
-from ..review_import import import_feature_reviews
-from ..schemas import require
+from theory_discovery.core.stage_interfaces import FeatureReviewImportInput, FeatureReviewImportOutput
+from theory_discovery.annotation.review_import import import_feature_reviews
+from theory_discovery.core.schemas import require
 
 
 def run(inputs: FeatureReviewImportInput) -> FeatureReviewImportOutput:

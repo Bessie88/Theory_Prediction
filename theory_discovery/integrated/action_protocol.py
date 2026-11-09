@@ -1,8 +1,8 @@
 """Freeze one neutral ontology/guidelines/comparison before Later processing."""
 from dataclasses import replace
-from ..stage_interfaces import ActionProtocolInput, ActionProtocolOutput
-from ..action_comparison import FrozenActionProtocol, protocol_hash
-from ..schemas import require
+from theory_discovery.core.stage_interfaces import ActionProtocolInput, ActionProtocolOutput
+from theory_discovery.annotation.action_comparison import FrozenActionProtocol, protocol_hash
+from theory_discovery.core.schemas import require
 
 
 def run(inputs: ActionProtocolInput) -> ActionProtocolOutput:

@@ -1,7 +1,7 @@
 """Selection worker; private success/stratum audit is never sent to reviewers."""
-from ..stage_interfaces import ReviewSamplingInput, ReviewSamplingOutput
-from ..review_sampling import select_reviews
-from ..schemas import require
+from theory_discovery.core.stage_interfaces import ReviewSamplingInput, ReviewSamplingOutput
+from theory_discovery.annotation.review_sampling import select_reviews
+from theory_discovery.core.schemas import require
 
 
 def run(inputs: ReviewSamplingInput) -> ReviewSamplingOutput:

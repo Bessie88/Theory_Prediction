@@ -1,14 +1,14 @@
 """NPOV is a source adapter to the existing planner/matcher/action engine."""
 from dataclasses import replace
-from ..stage_interfaces import (
+from theory_discovery.core.stage_interfaces import (
     NPOVPreparationInput, NPOVPreparationOutput, NPOVPredictionInput,
     NPOVPredictionOutput, MeasurementPlanningInput, PolicyPlan,
 )
-from ..policy_projection import planning_bundle, attach_policy_application
-from ..policy_contracts import PolicySourceUnavailable
-from ..theory_action_prediction import predict_knowledge
-from ..workflow_contracts import Method
-from ..schemas import require
+from theory_discovery.prediction.policy_projection import planning_bundle, attach_policy_application
+from theory_discovery.prediction.policy_contracts import PolicySourceUnavailable
+from theory_discovery.prediction.theory_action_prediction import predict_knowledge
+from theory_discovery.core.workflow_contracts import Method
+from theory_discovery.core.schemas import require
 from .measurement_planner import run as shared_planning
 
 

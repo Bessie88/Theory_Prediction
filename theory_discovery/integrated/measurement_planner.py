@@ -1,8 +1,8 @@
 """Connected original-theory -> procedure/specification registry stage."""
-from ..stage_interfaces import MeasurementPlanningInput, MeasurementPlanningOutput
-from ..measurement_planner import plan_measurements, PLANNER_PROMPT_VERSION
-from ..measurement_runtime import configured_backend
-from ..schemas import require
+from theory_discovery.core.stage_interfaces import MeasurementPlanningInput, MeasurementPlanningOutput
+from theory_discovery.features.measurement_planner import plan_measurements, PLANNER_PROMPT_VERSION
+from theory_discovery.features.measurement_runtime import configured_backend
+from theory_discovery.core.schemas import require
 
 
 def run(inputs: MeasurementPlanningInput, *, workers=1, progress=None) -> MeasurementPlanningOutput:

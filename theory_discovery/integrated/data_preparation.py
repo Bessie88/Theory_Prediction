@@ -1,18 +1,18 @@
 """Future revision preparation. No source is configured/loaded at import."""
 from hashlib import sha256
-from ..evaluation_contracts import EvaluationContext
-from ..workflow_contracts import (
+from theory_discovery.evaluation.evaluation_contracts import EvaluationContext
+from theory_discovery.core.workflow_contracts import (
     CaseIdentity, Period, PredictionCase, OutcomeCase, ChronologicalSplitManifest, MetadataItem,
 )
-from ..revision_history import load_local_revisions, SENTENCE_PAIR_UNITS, unique_revision_metadata
-from ..chronological_split import split_editor_revisions
-from ..prediction_units import (RevisionBefore, BuiltinBeforeTargeter, validate_units, align_outcomes,
+from theory_discovery.core.revision_history import load_local_revisions, SENTENCE_PAIR_UNITS, unique_revision_metadata
+from theory_discovery.core.chronological_split import split_editor_revisions
+from theory_discovery.core.prediction_units import (RevisionBefore, BuiltinBeforeTargeter, validate_units, align_outcomes,
                                 provided_sentence_unit, AlignedOutcome)
-from ..stage_interfaces import (
+from theory_discovery.core.stage_interfaces import (
     DataPreparationInput, DataPreparationOutput, SplitArtifact, EarlyRecords,
     EarlyBeforeRecords, LaterRecords, OutcomeRecords, NeutralActionCatalog,
 )
-from ..schemas import require, stable_id
+from theory_discovery.core.schemas import require, stable_id
 
 
 def prepare_records(inputs: DataPreparationInput, revisions, targeter=None) -> DataPreparationOutput:

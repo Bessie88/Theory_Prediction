@@ -1,9 +1,9 @@
 """Explicit opt-in raw-policy diagnostic using the shared registry/configuration."""
-from ..direct_policy_control import (
+from theory_discovery.prediction.direct_policy_control import (
     DirectPolicyControlInput, DirectPolicyControlOutput, direct_policy_control, PROMPT_VERSION,
 )
-from ..measurement_runtime import configured_backend
-from ..schemas import require
+from theory_discovery.features.measurement_runtime import configured_backend
+from theory_discovery.core.schemas import require
 
 
 def run(inputs: DirectPolicyControlInput) -> DirectPolicyControlOutput:

@@ -1,9 +1,9 @@
 """One feature artifact -> two source-tagged runs of the SAME deterministic matcher."""
-from ..stage_interfaces import ApplicabilityInput, ApplicabilityOutput
-from ..theory_applicability import apply_knowledge
-from ..policy_contracts import BaselineComparability, PolicySourceUnavailable
-from ..workflow_contracts import Method
-from ..schemas import require, stable_id
+from theory_discovery.core.stage_interfaces import ApplicabilityInput, ApplicabilityOutput
+from theory_discovery.prediction.theory_applicability import apply_knowledge
+from theory_discovery.prediction.policy_contracts import BaselineComparability, PolicySourceUnavailable
+from theory_discovery.core.workflow_contracts import Method
+from theory_discovery.core.schemas import require, stable_id
 
 
 def run(inputs: ApplicabilityInput) -> ApplicabilityOutput:

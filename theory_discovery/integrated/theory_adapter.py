@@ -2,14 +2,14 @@
 from dataclasses import replace
 import json
 from pathlib import Path
-from ..workflow_contracts import (
+from theory_discovery.core.workflow_contracts import (
     TheoryRecord, ProseClause, ActionOption, SourceReference, Period, TheoryEvidenceLink,
     NativeRepresentation, EditorRevision, theory_id_for,
 )
-from ..stage_interfaces import TheoryAdapterInput, TheoryAdapterOutput, TheoryBundle
-from ..artifact_registry import file_hash
-from ..schemas import require, stable_id
-from ..chronological_split import early_manifest_projection
+from theory_discovery.core.stage_interfaces import TheoryAdapterInput, TheoryAdapterOutput, TheoryBundle
+from theory_discovery.core.artifact_registry import file_hash
+from theory_discovery.core.schemas import require, stable_id
+from theory_discovery.core.chronological_split import early_manifest_projection
 
 
 def _read(ref):
@@ -30,7 +30,7 @@ def normalize_theory(inputs: TheoryAdapterInput, native, sidecar_values) -> Theo
                    ("generation_mode", "rule_representation", "integration_method", "version"))
     require(actual == expected, "Unknown native theory schema; no executable-rule fallback")
     # Pure original validator; no model call is performed by it.
-    from ..natural_pipeline import validate_theory
+    from theory_discovery.induction.natural_pipeline import validate_theory
     validate_theory(native)
     manifest = inputs.split.manifest
     cases = {c.case_id: c for c in manifest.cases if c.period is Period.EARLY}
