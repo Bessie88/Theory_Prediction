@@ -1,8 +1,8 @@
 """One central evaluator for both frozen prediction branches and the same gold view."""
-from ..stage_interfaces import EvaluationInput, EvaluationOutput, EvaluationBatch
-from ..workflow_contracts import EvaluationResult, RuleAnalysis
-from ..shared_evaluation import evaluate, metric
-from ..schemas import require
+from theory_discovery.core.stage_interfaces import EvaluationInput, EvaluationOutput, EvaluationBatch
+from theory_discovery.core.workflow_contracts import EvaluationResult, RuleAnalysis
+from theory_discovery.evaluation.shared_evaluation import evaluate, metric
+from theory_discovery.core.schemas import require
 
 def run(inputs: EvaluationInput) -> EvaluationOutput:
     require(inputs.execution_authorized, "Evaluation disabled")

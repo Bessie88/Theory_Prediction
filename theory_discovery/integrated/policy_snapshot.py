@@ -1,7 +1,7 @@
 """Explicit, gated local official-policy ingestion; no downloader."""
-from ..stage_interfaces import PolicySnapshotInput, PolicySnapshotOutput
-from ..policy_ingestion import ingest_policy
-from ..schemas import require
+from theory_discovery.core.stage_interfaces import PolicySnapshotInput, PolicySnapshotOutput
+from theory_discovery.prediction.policy_ingestion import ingest_policy
+from theory_discovery.core.schemas import require
 
 
 def run(inputs: PolicySnapshotInput) -> PolicySnapshotOutput:

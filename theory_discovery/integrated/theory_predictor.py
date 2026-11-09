@@ -1,7 +1,7 @@
 """Connected deterministic source-action prediction, without outcomes/annotation."""
-from ..stage_interfaces import TheoryPredictionInput, TheoryPredictionOutput
-from ..theory_action_prediction import predict_actions
-from ..schemas import require
+from theory_discovery.core.stage_interfaces import TheoryPredictionInput, TheoryPredictionOutput
+from theory_discovery.prediction.theory_action_prediction import predict_actions
+from theory_discovery.core.schemas import require
 
 
 def run(inputs: TheoryPredictionInput) -> TheoryPredictionOutput:

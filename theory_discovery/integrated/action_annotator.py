@@ -1,11 +1,11 @@
 """Actual-action annotation with no prediction, Theory or NPOV rule inputs."""
 from pathlib import Path
 
-from ..stage_interfaces import AnnotationInput, AnnotationOutput, AnnotationBatch
-from ..action_annotator import annotate_cases
-from ..compact_action_annotator import CompactActionBackend
-from ..annotation_prompts import PROMPT_VERSION
-from ..measurement_runtime import configured_backend
+from theory_discovery.core.stage_interfaces import AnnotationInput, AnnotationOutput, AnnotationBatch
+from theory_discovery.annotation.action_annotator import annotate_cases
+from theory_discovery.annotation.compact_action_annotator import CompactActionBackend
+from theory_discovery.annotation.annotation_prompts import PROMPT_VERSION
+from theory_discovery.features.measurement_runtime import configured_backend
 
 
 def run(inputs: AnnotationInput, *, resume=True) -> AnnotationOutput:

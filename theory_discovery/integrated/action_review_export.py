@@ -1,7 +1,7 @@
 """Registered reviewer-facing Action packet; no sampling reasons or predictions."""
-from ..stage_interfaces import ActionReviewExportInput, ActionReviewExportOutput
-from ..review_export import export_action_reviews
-from ..schemas import require
+from theory_discovery.core.stage_interfaces import ActionReviewExportInput, ActionReviewExportOutput
+from theory_discovery.annotation.review_export import export_action_reviews
+from theory_discovery.core.schemas import require
 
 
 def run(inputs: ActionReviewExportInput) -> ActionReviewExportOutput:

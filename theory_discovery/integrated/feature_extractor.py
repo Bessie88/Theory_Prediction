@@ -1,15 +1,15 @@
 """Shared Condition/Boundary/policy engine -> existing FeatureObservation port."""
-from ..stage_interfaces import FeatureExtractionInput, FeatureExtractionOutput, FeatureBatch
-from ..feature_spec_registry import FeatureSpecificationRegistry, freeze_measurements
-from ..measurement_executor import MeasurementExecutor
-from ..feature_review_source import build_feature_review_source
-from ..measurement_runtime import configured_backend
-from ..feature_cache import SharedFeatureCache
-from ..semantic_features import PROMPT_VERSION, CONDITION_LABEL_PROMPT_VERSION, label_before_conditions
+from theory_discovery.core.stage_interfaces import FeatureExtractionInput, FeatureExtractionOutput, FeatureBatch
+from theory_discovery.features.feature_spec_registry import FeatureSpecificationRegistry, freeze_measurements
+from theory_discovery.features.measurement_executor import MeasurementExecutor
+from theory_discovery.features.feature_review_source import build_feature_review_source
+from theory_discovery.features.measurement_runtime import configured_backend
+from theory_discovery.features.feature_cache import SharedFeatureCache
+from theory_discovery.features.semantic_features import PROMPT_VERSION, CONDITION_LABEL_PROMPT_VERSION, label_before_conditions
 from dataclasses import replace
-from ..workflow_contracts import MeasurementMethod
-from ..schemas import require
-from ..theory_application_registry import validate_study
+from theory_discovery.core.workflow_contracts import MeasurementMethod
+from theory_discovery.core.schemas import require
+from theory_discovery.prediction.theory_application_registry import validate_study
 
 
 def run(inputs: FeatureExtractionInput) -> FeatureExtractionOutput:
@@ -37,7 +37,7 @@ def run(inputs: FeatureExtractionInput) -> FeatureExtractionOutput:
     # are never inserted into another target's request/context.
     open_coded = inputs.runtime.configuration_id.startswith("open-code-align-critical-v")
     if open_coded:
-        from ..open_code_features import execute_case
+        from theory_discovery.features.open_code_features import execute_case
         observations = tuple(o for case in inputs.later.records for o in execute_case(inputs,case,provider))
     else:
         observations = tuple(executor.execute(spec, case) for case in inputs.later.records

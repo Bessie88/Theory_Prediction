@@ -1,7 +1,7 @@
 """Later evaluation view -> independent annotation view and deterministic exact diff."""
-from ..stage_interfaces import AnnotationDataInput, AnnotationDataOutput
-from ..annotation_data import prepare_annotation_cases
-from ..schemas import require
+from theory_discovery.core.stage_interfaces import AnnotationDataInput, AnnotationDataOutput
+from theory_discovery.annotation.annotation_data import prepare_annotation_cases
+from theory_discovery.core.schemas import require
 
 
 def run(inputs: AnnotationDataInput) -> AnnotationDataOutput:

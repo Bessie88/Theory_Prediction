@@ -8,13 +8,13 @@ from dataclasses import fields
 from pathlib import Path
 import fcntl
 import os
-from ..workflow_contracts import SourceReference, Period
-from ..stage_interfaces import DiscoveryInput, DiscoveryOutput, NativeTheoryBundle, LegacyCaseAlias
-from ..config import Config, LLMConfig
-from ..schemas import EditingPair, stable_id, require
-from ..storage import Cache, write_json
-from ..artifact_registry import file_hash
-from ..chronological_split import early_manifest_projection
+from theory_discovery.core.workflow_contracts import SourceReference, Period
+from theory_discovery.core.stage_interfaces import DiscoveryInput, DiscoveryOutput, NativeTheoryBundle, LegacyCaseAlias
+from theory_discovery.core.config import Config, LLMConfig
+from theory_discovery.core.schemas import EditingPair, stable_id, require
+from theory_discovery.core.storage import Cache, write_json
+from theory_discovery.core.artifact_registry import file_hash
+from theory_discovery.core.chronological_split import early_manifest_projection
 
 # Original parallel_discovery reads this environment variable. The wrapper pins
 # the central value temporarily and restores the prior value, without changing
@@ -106,7 +106,7 @@ def run(inputs: DiscoveryInput) -> DiscoveryOutput:
             identity = {"experiment_id": inputs.workspace.experiment_id,
                         "configuration_id": inputs.workspace.configuration_id, "cohort_id": cohort}
             owner_path = root / "bridge_identity.json"
-            from ..storage import read_json
+            from theory_discovery.core.storage import read_json
             if owner_path.exists():
                 require(read_json(owner_path) == identity, "Refuse unrelated discovery workspace")
             else:
@@ -119,10 +119,10 @@ def run(inputs: DiscoveryInput) -> DiscoveryOutput:
                 "excluded_early_cases": excluded,
                 "early_manifest": early_manifest_projection(inputs.split.manifest)})
             # Lazy imports avoid importing historical top-level execution scripts.
-            from ..parallel_discovery import run_framework
-            from ..hierarchical_theory import synthesize_hierarchical
-            from ..response_recovery import RecoverableQwenJSONClient
-            from ..wire_budget_client import WireBudgetQwenClient
+            from theory_discovery.induction.parallel_discovery import run_framework
+            from theory_discovery.induction.hierarchical_theory import synthesize_hierarchical
+            from theory_discovery.core.response_recovery import RecoverableQwenJSONClient
+            from theory_discovery.core.wire_budget_client import WireBudgetQwenClient
             backend = RecoverableQwenJSONClient(cfg.llm, Cache(cfg.cache_dir))
             backend.verify_model()
             with _legacy_environment(inputs.settings.boundary_workers):

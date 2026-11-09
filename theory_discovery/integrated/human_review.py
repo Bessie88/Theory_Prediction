@@ -1,7 +1,7 @@
 """Completed Action response ingestion; absent replies remain pending."""
-from ..stage_interfaces import HumanReviewInput, HumanReviewOutput, HumanReviewBatch
-from ..review_import import import_action_reviews
-from ..schemas import require
+from theory_discovery.core.stage_interfaces import HumanReviewInput, HumanReviewOutput, HumanReviewBatch
+from theory_discovery.annotation.review_import import import_action_reviews
+from theory_discovery.core.schemas import require
 
 
 def run(inputs: HumanReviewInput) -> HumanReviewOutput:

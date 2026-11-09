@@ -1,14 +1,14 @@
 """Freeze two independent knowledge sources against ONE feature and Action registry."""
 from dataclasses import replace
-from ..stage_interfaces import FreezeInput, FreezeOutput, StudySpecification
-from ..feature_spec_registry import FeatureSpecificationRegistry, freeze_measurements
-from ..theory_application_registry import compile_theory_registry, compile_knowledge_registry, validate_study
-from ..application_contracts import study_hash, ApplicationSettings
-from ..policy_contracts import policy_registry_hash, PolicySourceUnavailable
-from ..policy_projection import planning_bundle, attach_policy_application
-from ..workflow_contracts import Method
-from ..action_comparison import validate_protocol
-from ..schemas import require, stable_id
+from theory_discovery.core.stage_interfaces import FreezeInput, FreezeOutput, StudySpecification
+from theory_discovery.features.feature_spec_registry import FeatureSpecificationRegistry, freeze_measurements
+from theory_discovery.prediction.theory_application_registry import compile_theory_registry, compile_knowledge_registry, validate_study
+from theory_discovery.core.application_contracts import study_hash, ApplicationSettings
+from theory_discovery.prediction.policy_contracts import policy_registry_hash, PolicySourceUnavailable
+from theory_discovery.prediction.policy_projection import planning_bundle, attach_policy_application
+from theory_discovery.core.workflow_contracts import Method
+from theory_discovery.annotation.action_comparison import validate_protocol
+from theory_discovery.core.schemas import require, stable_id
 
 
 def run(inputs: FreezeInput) -> FreezeOutput:

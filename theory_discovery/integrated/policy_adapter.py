@@ -1,8 +1,8 @@
 """Official snapshot and neutral catalog ONLY -> independently registered policy rules."""
-from ..stage_interfaces import PolicyAdapterInput, PolicyAdapterOutput
-from ..policy_adapter import adapt_policy, PROMPT_VERSION
-from ..measurement_runtime import configured_backend
-from ..schemas import require
+from theory_discovery.core.stage_interfaces import PolicyAdapterInput, PolicyAdapterOutput
+from theory_discovery.prediction.policy_adapter import adapt_policy, PROMPT_VERSION
+from theory_discovery.features.measurement_runtime import configured_backend
+from theory_discovery.core.schemas import require
 
 
 def run(inputs: PolicyAdapterInput) -> PolicyAdapterOutput:
