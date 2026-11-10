@@ -11,4 +11,6 @@ flowchart TD
     E --> H["Evaluate and compare cohort rates<br/>evaluation/condition_evolution_cli.py"]
     G --> H
     H -->|Confirmed uncovered cases| B
+    H -->|Large prediction-rate gap| I["Review conditions with another model<br/>evaluation/condition_shift_audit_cli.py"]
+    I -->|Confirmed coverage gaps| B
 ~~~

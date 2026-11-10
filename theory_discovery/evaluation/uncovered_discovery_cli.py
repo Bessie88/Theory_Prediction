@@ -56,6 +56,20 @@ def discovery_pairs(predictions, routes, outcomes):
     return pairs, unavailable
 
 
+def induce_uncovered(pairs, config, workspace):
+    """Use the established open-coding and Theory pipeline for confirmed misses."""
+    from theory_discovery.induction.parallel_discovery import run_framework
+    from theory_discovery.core.response_recovery import RecoverableQwenJSONClient
+    backend = RecoverableQwenJSONClient(config.llm, Cache(workspace / "transport"))
+    backend.verify_model()
+    theory = run_framework(pairs, config, backend, retain_unchanged=True)["theory"]
+    return [
+        {key: row[key] for key in ("branch_id", "situation", "source_rules", "action_options",
+                                  "evidence_citations", "uncertainty")}
+        for row in theory["branches"]
+    ]
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--prediction-dir", type=Path, required=True)
@@ -111,16 +125,7 @@ def main(argv=None):
         if args.run and not result.exists():
             directions = []
             if pairs:
-                from theory_discovery.induction.parallel_discovery import run_framework
-                from theory_discovery.core.response_recovery import RecoverableQwenJSONClient
-                backend = RecoverableQwenJSONClient(config.llm, Cache(out / "transport"))
-                backend.verify_model()
-                theory = run_framework(pairs, config, backend, retain_unchanged=True)["theory"]
-                directions = [
-                    {key: row[key] for key in ("branch_id", "situation", "source_rules", "action_options",
-                                              "evidence_citations", "uncertainty")}
-                    for row in theory["branches"]
-                ]
+                directions = induce_uncovered(pairs, config, out)
             write_json(result, dict(state="CANDIDATE_DIRECTIONS" if directions else
                                     "NO_SUPPORTED_DIRECTIONS" if pairs else "NO_ELIGIBLE_PAIRS",
                                     theory_path="induction/theory.json" if pairs else None,

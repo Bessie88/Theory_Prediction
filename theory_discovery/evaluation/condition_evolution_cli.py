@@ -48,7 +48,11 @@ def main():
     p.add_argument('--prediction-dir',type=Path,help='Existing prediction freeze; required only with --new-annotations')
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--method',choices=('THEORY','NPOV'),default='THEORY')
+    p.add_argument('--shift-audit-config',type=Path,metavar='CONFIG',
+        help='Run an independent Condition audit of large NEW prediction-rate gaps')
     args=p.parse_args()
+    require(not args.shift_audit_config or (args.prediction_dir and args.method=='THEORY'),
+            'Condition audit requires the frozen THEORY prediction directory')
     require(not args.output.exists(),'Use a fresh output directory; preserve prior results')
     require(not args.new_annotations or (args.action_protocol and args.prediction_dir),
             'Existing annotations need their Action protocol and prediction directory')
@@ -89,6 +93,9 @@ def main():
     write_json(args.output/'input_manifest.json',dict(input_sha256=before,models_called=0 if not args.prepare_old_baseline else None,gpu_jobs_submitted=0,
         existing_labels_reused=not bool(args.prepare_old_baseline), baseline_prepared=bool(args.prepare_old_baseline)))
     for path,digest in before.items():require(sha256(Path(path).read_bytes()).hexdigest()==digest,'Inputs changed during analysis')
+    if args.shift_audit_config:
+        from .condition_shift_audit_cli import run_from_config
+        run_from_config(old,new,predictions,snapshot,args.shift_audit_config,args.output/'shift_audit',run=True)
     print(json.dumps(dict(conditions=len(report['conditions']),action_comparisons=len(report['action_distributions']),
         coverage_status=report['coverage_status'],
         models_called=0 if not args.prepare_old_baseline else None)))
